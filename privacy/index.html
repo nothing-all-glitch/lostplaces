@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lost Places privacy</title>
+<meta name="description" content="What Lost Places does with your information: location stays on your phone, no account, no ads, no analytics.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#16130F; --ink-soft:#3A342C; --ink-muted:#5E564C; --chalk:#F1EDE3; --paper:#FBFAF6;
+  --lichen:#D6E35F; --rule:#CFC5B3; --card:#FFFFFF;
+  --limestone:#E2D9C6; --sandstone:#D3C2A0; --brick:#BF9468; --iron:#7A5A3E; --loam:#5A4130; --peat:#34291F; --bog:#1A1612;
+  --bg:var(--chalk); --fg:var(--ink); --fg-soft:var(--ink-soft); --fg-muted:var(--ink-muted); --surface:var(--paper); --line:var(--rule);
+  --link:#4A5A10; --note-bg:var(--ink); --note-fg:var(--chalk);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#1A1612; --fg:#F1EDE3; --fg-soft:#E2D9C6; --fg-muted:#BDB2A1; --surface:#2A241E; --line:#4A3D30;
+    --link:#D6E35F; --note-bg:#34291F; --note-fg:#F1EDE3; --card:#2A241E;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#1A1612; --fg:#F1EDE3; --fg-soft:#E2D9C6; --fg-muted:#BDB2A1; --surface:#2A241E; --line:#4A3D30;
+  --link:#D6E35F; --note-bg:#34291F; --note-fg:#F1EDE3; --card:#2A241E;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; }
+a { color:var(--link); text-underline-offset:3px; font-weight:600; }
+a:focus-visible, button:focus-visible { outline:3px solid var(--lichen); outline-offset:2px; border-radius:4px; }
+.skip { position:absolute; left:-999px; } .skip:focus { left:16px; top:16px; background:var(--lichen); color:var(--ink); padding:8px 12px; z-index:10; }
+
+/* Hero: the first-launch screen, chalk above the surface line, the bands darkening with age. */
+.hero { background:var(--chalk); color:var(--ink); padding:28px 16px 0; }
+.hero .wrap { max-width:860px; margin:0 auto; }
+.brand { display:flex; align-items:center; gap:10px; font:700 13px/1 "Hanken Grotesk"; letter-spacing:.2em; text-transform:uppercase; }
+.brand svg { width:22px; height:22px; }
+h1 { font:800 clamp(44px, 11vw, 92px)/.88 "Big Shoulders Display", Impact, sans-serif; text-transform:uppercase; margin:22px 0 14px; letter-spacing:-.01em; }
+.lede { font:400 clamp(19px, 3.6vw, 23px)/1.4 "Newsreader", Georgia, serif; color:var(--ink-soft); max-width:36em; margin:0 0 22px; }
+.you { display:flex; align-items:center; gap:8px; font:700 12px/1 "Hanken Grotesk"; letter-spacing:.16em; text-transform:uppercase; padding:0 0 10px; }
+.you i { width:12px; height:12px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 5px rgba(22,19,15,.12); }
+.bands div { font:700 11px/1 "Hanken Grotesk"; letter-spacing:.14em; text-align:right; padding:6px 16px; }
+.bands div:nth-child(1) { background:var(--limestone); color:var(--ink); border-top:2px solid var(--ink); }
+.bands div:nth-child(2) { background:var(--sandstone); color:var(--ink); }
+.bands div:nth-child(3) { background:var(--brick); color:var(--ink); }
+.bands div:nth-child(4) { background:var(--iron); color:var(--chalk); }
+.bands div:nth-child(5) { background:var(--loam); color:var(--chalk); }
+.bands div:nth-child(6) { background:var(--peat); color:var(--chalk); }
+
+/* Contents as chips; sticky on wide screens only so it never eats a phone screen. */
+nav.toc { background:var(--bog); padding:16px; }
+nav.toc .wrap { max-width:860px; margin:0 auto; display:flex; flex-wrap:wrap; gap:8px; }
+nav.toc a { color:var(--chalk); border:1.5px solid #A89C8A; border-radius:999px; padding:9px 14px; font:600 14px/1.1 "Hanken Grotesk"; text-decoration:none; min-height:40px; display:inline-flex; align-items:center; }
+nav.toc a:hover { background:var(--lichen); color:var(--ink); border-color:var(--lichen); }
+.toolbar { max-width:860px; margin:0 auto; display:flex; justify-content:flex-end; padding:12px 16px 0; }
+.theme { background:none; border:1.5px solid var(--line); color:var(--fg); border-radius:999px; padding:8px 14px; font:600 14px "Hanken Grotesk"; cursor:pointer; min-height:40px; }
+
+main { max-width:860px; margin:0 auto; padding:0 16px 48px; }
+section { position:relative; padding:8px 0 8px 22px; margin:28px 0; }
+section::before { content:""; position:absolute; left:0; top:12px; bottom:12px; width:8px; border-radius:4px; background:var(--band); }
+.era-limestone { --band:var(--limestone); } .era-sandstone { --band:var(--sandstone); } .era-brick { --band:var(--brick); }
+.era-iron { --band:var(--iron); } .era-loam { --band:var(--loam); } .era-peat { --band:var(--peat); } .era-bog { --band:#0E0B08; }
+:root[data-theme="dark"] .era-bog, :root[data-theme="dark"] .era-peat { --band:#6B5743; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .era-bog, :root:not([data-theme="light"]) .era-peat { --band:#6B5743; } }
+h2 { font:800 clamp(32px, 7vw, 48px)/.95 "Big Shoulders Display", Impact, sans-serif; text-transform:uppercase; margin:8px 0 14px; scroll-margin-top:16px; }
+h3 { font:700 20px/1.25 "Hanken Grotesk"; margin:26px 0 8px; scroll-margin-top:16px; }
+p, li { color:var(--fg-soft); }
+strong { color:var(--fg); }
+ul, ol { padding-left:22px; } li { margin:6px 0; }
+
+.shots { display:flex; gap:14px; overflow-x:auto; padding:6px 2px 14px; margin:14px 0 18px; scroll-snap-type:x mandatory; }
+.shots img { flex:0 0 auto; width:min(240px, 62vw); height:auto; border-radius:22px; border:6px solid var(--ink); background:var(--ink); scroll-snap-align:start; box-shadow:0 8px 24px rgba(22,19,15,.18); }
+.shots img[src*="alert"] { width:min(360px, 80vw); border-radius:16px; }
+
+aside.note { background:var(--note-bg); color:var(--note-fg); border-left:8px solid var(--lichen); border-radius:14px; padding:14px 18px; margin:18px 0; }
+aside.note p { color:var(--note-fg); margin:0; } aside.note strong { color:var(--note-fg); } aside.note a { color:var(--lichen); }
+
+.table { overflow-x:auto; margin:14px 0 20px; border:1.5px solid var(--line); border-radius:14px; background:var(--surface); }
+table { border-collapse:collapse; width:100%; min-width:460px; font-size:15.5px; }
+th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--line); color:var(--fg-soft); }
+th { font:700 12px/1.2 "Hanken Grotesk"; letter-spacing:.12em; text-transform:uppercase; color:var(--fg); background:color-mix(in srgb, var(--band, var(--limestone)) 35%, transparent); }
+tr:last-child td { border-bottom:none; }
+@media (max-width:600px) {
+  table { min-width:0; } thead { position:absolute; left:-9999px; }
+  table, tbody, tr, td { display:block; width:100%; }
+  tr { padding:10px 0; border-bottom:1px solid var(--line); } tr:last-child { border-bottom:none; }
+  td { border:none; padding:3px 14px; }
+  td:first-child { color:var(--fg); font-weight:700; font-size:16.5px; padding-bottom:5px; }
+  td:not(:first-child)[data-label]:not([data-label=""])::before { content:attr(data-label) ": "; font-weight:700; color:var(--fg); }
+}
+code { font-family:ui-monospace, monospace; font-size:.92em; }
+.credits { border-top:2px solid var(--fg); padding-top:16px; margin-top:32px; font-size:14.5px; }
+.credits p { color:var(--fg-muted); }
+.top { display:inline-block; margin-top:6px; font-size:14px; }
+@media (min-width:760px) { body { font-size:18px; } }
+@media print { nav.toc, .toolbar { display:none; } .shots { flex-wrap:wrap; overflow:visible; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#guide">Skip to the policy</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v15M5 18h14M8 7h8M12 3l-6 15M12 3l6 15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>Lost Places · privacy</div>
+    <h1>Privacy policy</h1>
+    <p class="lede">Last updated 22 October 2026. Your location never leaves your phone.</p>
+    <div class="you" aria-hidden="true"><i></i>You, now</div>
+  </div>
+  <div class="bands" aria-hidden="true"><div>AD 1700</div><div>AD 1300</div><div>AD 43</div><div>800 BC</div><div>2200 BC</div><div>3800 BC</div></div>
+</header>
+<nav class="toc" aria-label="Contents"><div class="wrap">
+<a href="#location">Location</a>
+<a href="#notifications">Notifications</a>
+<a href="#camera">Camera</a>
+<a href="#what-is-stored-on-your-phone">What is stored on your phone</a>
+<a href="#network-use">Network use</a>
+<a href="#directions">Directions</a>
+<a href="#purchases">Purchases</a>
+<a href="#ratings">Ratings</a>
+<a href="#children">Children</a>
+<a href="#where-the-data-in-the-app-comes-from">Where the data in the app comes from</a>
+<a href="#google-play-data-safety">Google Play Data safety</a>
+<a href="#changes-and-contact">Changes and contact</a>
+</div></nav>
+<div class="toolbar"><button class="theme" type="button" id="theme" aria-pressed="false">Dark</button></div>
+<main id="guide">
+<section class="era-limestone"><p>Lost Places ("the app") is published on Google Play by its developer ("we", shown as the developer on the app's Google Play page). This policy says what the app does with your information.</p>
+<p><strong>The short version:</strong> your location and everything you do in the app stay on your phone. There's no account, no advertising and no analytics. The app only goes online to download the offline packs you choose and to talk to Google Play for purchases and reviews.</p>
+</section>
+<section class="era-limestone"><h2 id="location">Location</h2>
+<p>The app uses your phone's location on the phone itself to:</p>
+<ul>
+<li>build the column of places under where you stand, and show distances to exact, public places;</li>
+<li>run a <strong>walk with alerts</strong>, which you start yourself, and tell you when you're about 200 m from a place;</li>
+<li>only if you turn on "Alerts when the app is closed" (not offered in every version), tell you near places when the app isn't open.</li>
+</ul>
+<p>Your location is compared on your phone with the offline site list. <strong>It is never sent to us or to anyone else.</strong> Background location is optional; the app works fully without it.</p>
+<p>Walks need <strong>precise</strong> location. With approximate location the app explains this and doesn't start the walk.</p>
+</section>
+<section class="era-sandstone"><h2 id="notifications">Notifications</h2>
+<p>Arrival alerts, "Lost near you" notices, "Under your feet" lines and protected-area reminders are created on your phone during a walk. If you turn it on, an optional <strong>Today's line reminder</strong> appears at 08:00 when you haven't answered that day's question; it is scheduled on the phone and never sent from a server. Quiet hours (22:00–07:00 by default) keep the app silent at night unless you change them.</p>
+</section>
+<section class="era-sandstone"><h2 id="camera">Camera</h2>
+<p>The optional <strong>Horizon camera view</strong> (an Explorer feature with 3 free tries) uses the camera only while it is open, to label places on the live picture. Images are processed on the phone. A photo is saved only when you press the shutter, and only to your own photo gallery. Horizon itself uses the compass, never the camera.</p>
+</section>
+<section class="era-brick"><h2 id="what-is-stored-on-your-phone">What is stored on your phone</h2>
+<ul>
+<li><strong>Your column:</strong> the places you added on site, with the place, its date and where you were when you added it.</li>
+<li><strong>Saved places</strong> and the stories you've heard.</li>
+<li><strong>Today's line:</strong> the days you answered and whether you were right.</li>
+<li><strong>Alert history and muted areas</strong>, used to avoid repeating alerts.</li>
+<li><strong>Settings</strong>, including a place you chose to browse from and the treasure stories you asked to hear about.</li>
+</ul>
+<p>This data never leaves the phone, except that <strong>Android backup</strong>, if you have it turned on, may copy it to your own Google account backup. Offline packs are never backed up. Uninstalling the app, or clearing its data, deletes it.</p>
+</section>
+<section class="era-brick"><h2 id="network-use">Network use</h2>
+<p>The app connects to the internet only to:</p>
+<ul>
+<li><strong>Download offline packs</strong> (site data and, if you choose, the map) from our pack host. The list of packs comes from GitHub Pages and the files from GitHub Releases (GitHub is owned by Microsoft); we may later move the files to Cloudflare R2. Like any web request, this shows your IP address and the file requested to that host, which handles it under its own privacy policy. We add no tracking and receive no information about who downloaded what.</li>
+<li><strong>Talk to Google Play</strong> to check and complete the Explorer purchase, and to show the Google Play review sheet (see below).</li>
+</ul>
+<p>Nothing else goes online. There are no analytics, crash-reporting or advertising services in the app.</p>
+</section>
+<section class="era-iron"><h2 id="directions">Directions</h2>
+<p>"Directions" hands the place's coordinates to Google Maps or another maps app on your phone. That app then works under its own privacy policy. Lost Places doesn't send your location anywhere.</p>
+</section>
+<section class="era-iron"><h2 id="purchases">Purchases</h2>
+<p><strong>Explorer</strong> is a one-time purchase handled by Google Play Billing. We never see your payment details. The app stores only whether Explorer is owned.</p>
+</section>
+<section class="era-loam"><h2 id="ratings">Ratings</h2>
+<p>The app may ask once, after a good moment, whether you'd like to rate it, using the <strong>Google Play In-App Review</strong> sheet. Google Play shows the sheet and handles any rating or review you give under Google's privacy policy. The app is never told whether you rated it or what you wrote.</p>
+</section>
+<section class="era-loam"><h2 id="children">Children</h2>
+<p>The app is meant for people aged 13 and over. It collects no personal information from anyone.</p>
+</section>
+<section class="era-peat"><h2 id="where-the-data-in-the-app-comes-from">Where the data in the app comes from</h2>
+<p>Site information comes from open datasets: Historic England, Ireland's National Monuments Service, Wikidata, Pleiades and OpenStreetMap. Their licences are listed in the app under <strong>Settings &gt; Sources and licences</strong>.</p>
+</section>
+<section class="era-peat"><h2 id="google-play-data-safety">Google Play Data safety</h2>
+<p>Because nothing leaves the phone, the app's Data safety answers are <strong>no data collected</strong> and <strong>no data shared</strong>.</p>
+</section>
+<section class="era-bog"><h2 id="changes-and-contact">Changes and contact</h2>
+<p>If this policy changes, we'll update the date above and the in-app summary (<strong>Settings &gt; Privacy</strong>).</p>
+<p>Questions: <strong>masoodbarkiwork@gmail.com</strong></p>
+<p>This policy is published at: https://nothing-all-glitch.github.io/lostplaces/privacy/</p></section>
+<a class="top" href="#guide">Back to the top</a>
+</main>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme');
+  function dark() { var t = root.getAttribute('data-theme'); return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; }
+  function label() { var d = dark(); btn.textContent = d ? 'Light' : 'Dark'; btn.setAttribute('aria-pressed', String(d)); btn.setAttribute('aria-label', d ? 'Switch to light theme' : 'Switch to dark theme'); }
+  try { var saved = localStorage.getItem('lp-guide-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  label();
+  btn.addEventListener('click', function () {
+    var next = dark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('lp-guide-theme', next); } catch (e) {}
+    label();
+  });
+})();
+</script>
+</body>
+</html>

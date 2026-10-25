@@ -1,0 +1,114 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-22T13:22:22Z",
+  "packs": [
+    {
+      "id": "gb-eng",
+      "name": "England",
+      "version": "2026.10.22",
+      "bbox": [
+        -6.45,
+        49.86,
+        1.77,
+        55.81
+      ],
+      "site_count": 26938,
+      "zone_count": 7366,
+      "osm_site_count": 20801,
+      "files": [
+        {
+          "name": "sites.db",
+          "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/gb-eng-sites.db",
+          "size": 14331904,
+          "sha256": "0721545585707112c447c7340c66b24ad46e36808f9a7639e96a6a941f8c52fc",
+          "licence": "OGL-3.0 + CC0 + CC BY",
+          "part": "sites"
+        },
+        {
+          "name": "osm_sites.db",
+          "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/gb-eng-osm_sites.db",
+          "size": 2883584,
+          "sha256": "0fabb706537800a858ed5f39e00a120ff9ccc84cc2436a1b9c0f17edabbadc6e",
+          "licence": "ODbL-1.0",
+          "part": "sites"
+        },
+        {
+          "name": "map.pmtiles",
+          "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/gb-eng-map.pmtiles",
+          "size": 1126216846,
+          "sha256": "1e55922481e048969e3413f17dfe8bf2209ab787db332df5daa5714969746064",
+          "licence": "ODbL-1.0 (OSM via Protomaps)",
+          "part": "map"
+        }
+      ],
+      "parts": [
+        {
+          "id": "sites",
+          "label": "Sites and stories",
+          "size": 17215488,
+          "required": true
+        },
+        {
+          "id": "map",
+          "label": "Map",
+          "size": 1126216846,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ie",
+      "name": "Ireland",
+      "version": "2026.10.22",
+      "bbox": [
+        -10.7,
+        51.38,
+        -5.95,
+        55.45
+      ],
+      "site_count": 142189,
+      "zone_count": 2582,
+      "osm_site_count": 33195,
+      "files": [
+        {
+          "name": "sites.db",
+          "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/ie-sites.db",
+          "size": 53800960,
+          "sha256": "95599cfb826c02ce40c418b55bae15c1ec86d1083bb1e76de9ccd72372b4b735",
+          "licence": "CC-BY-4.0 + CC0 + CC BY",
+          "part": "sites"
+        },
+        {
+          "name": "osm_sites.db",
+          "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/ie-osm_sites.db",
+          "size": 4685824,
+          "sha256": "056906c3437bdb71e04144227ace47db4219b02ae588b6f162f75673ad9869e9",
+          "licence": "ODbL-1.0",
+          "part": "sites"
+        },
+        {
+          "name": "map.pmtiles",
+          "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/ie-map.pmtiles",
+          "size": 265227812,
+          "sha256": "34108cd38696ca5b34e4775428dec11201631ec76283e76114b4d7fcdf4cdb63",
+          "licence": "ODbL-1.0 (OSM via Protomaps)",
+          "part": "map"
+        }
+      ],
+      "parts": [
+        {
+          "id": "sites",
+          "label": "Sites and stories",
+          "size": 58486784,
+          "required": true
+        },
+        {
+          "id": "map",
+          "label": "Map",
+          "size": 265227812,
+          "required": false
+        }
+      ]
+    }
+  ]
+}

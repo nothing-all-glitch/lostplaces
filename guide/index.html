@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lost Places guide</title>
+<meta name="description" content="Getting started with Lost Places: the Column, walks with alerts, lost villages, offline packs, Explorer, and how to respect the past.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#16130F; --ink-soft:#3A342C; --ink-muted:#5E564C; --chalk:#F1EDE3; --paper:#FBFAF6;
+  --lichen:#D6E35F; --rule:#CFC5B3; --card:#FFFFFF;
+  --limestone:#E2D9C6; --sandstone:#D3C2A0; --brick:#BF9468; --iron:#7A5A3E; --loam:#5A4130; --peat:#34291F; --bog:#1A1612;
+  --bg:var(--chalk); --fg:var(--ink); --fg-soft:var(--ink-soft); --fg-muted:var(--ink-muted); --surface:var(--paper); --line:var(--rule);
+  --link:#4A5A10; --note-bg:var(--ink); --note-fg:var(--chalk);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#1A1612; --fg:#F1EDE3; --fg-soft:#E2D9C6; --fg-muted:#BDB2A1; --surface:#2A241E; --line:#4A3D30;
+    --link:#D6E35F; --note-bg:#34291F; --note-fg:#F1EDE3; --card:#2A241E;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#1A1612; --fg:#F1EDE3; --fg-soft:#E2D9C6; --fg-muted:#BDB2A1; --surface:#2A241E; --line:#4A3D30;
+  --link:#D6E35F; --note-bg:#34291F; --note-fg:#F1EDE3; --card:#2A241E;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; }
+a { color:var(--link); text-underline-offset:3px; font-weight:600; }
+a:focus-visible, button:focus-visible { outline:3px solid var(--lichen); outline-offset:2px; border-radius:4px; }
+.skip { position:absolute; left:-999px; } .skip:focus { left:16px; top:16px; background:var(--lichen); color:var(--ink); padding:8px 12px; z-index:10; }
+
+/* Hero: the first-launch screen, chalk above the surface line, the bands darkening with age. */
+.hero { background:var(--chalk); color:var(--ink); padding:28px 16px 0; }
+.hero .wrap { max-width:860px; margin:0 auto; }
+.brand { display:flex; align-items:center; gap:10px; font:700 13px/1 "Hanken Grotesk"; letter-spacing:.2em; text-transform:uppercase; }
+.brand svg { width:22px; height:22px; }
+h1 { font:800 clamp(44px, 11vw, 92px)/.88 "Big Shoulders Display", Impact, sans-serif; text-transform:uppercase; margin:22px 0 14px; letter-spacing:-.01em; }
+.lede { font:400 clamp(19px, 3.6vw, 23px)/1.4 "Newsreader", Georgia, serif; color:var(--ink-soft); max-width:36em; margin:0 0 22px; }
+.you { display:flex; align-items:center; gap:8px; font:700 12px/1 "Hanken Grotesk"; letter-spacing:.16em; text-transform:uppercase; padding:0 0 10px; }
+.you i { width:12px; height:12px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 5px rgba(22,19,15,.12); }
+.bands div { font:700 11px/1 "Hanken Grotesk"; letter-spacing:.14em; text-align:right; padding:6px 16px; }
+.bands div:nth-child(1) { background:var(--limestone); color:var(--ink); border-top:2px solid var(--ink); }
+.bands div:nth-child(2) { background:var(--sandstone); color:var(--ink); }
+.bands div:nth-child(3) { background:var(--brick); color:var(--ink); }
+.bands div:nth-child(4) { background:var(--iron); color:var(--chalk); }
+.bands div:nth-child(5) { background:var(--loam); color:var(--chalk); }
+.bands div:nth-child(6) { background:var(--peat); color:var(--chalk); }
+
+/* Contents as chips; sticky on wide screens only so it never eats a phone screen. */
+nav.toc { background:var(--bog); padding:16px; }
+nav.toc .wrap { max-width:860px; margin:0 auto; display:flex; flex-wrap:wrap; gap:8px; }
+nav.toc a { color:var(--chalk); border:1.5px solid #A89C8A; border-radius:999px; padding:9px 14px; font:600 14px/1.1 "Hanken Grotesk"; text-decoration:none; min-height:40px; display:inline-flex; align-items:center; }
+nav.toc a:hover { background:var(--lichen); color:var(--ink); border-color:var(--lichen); }
+.toolbar { max-width:860px; margin:0 auto; display:flex; justify-content:flex-end; padding:12px 16px 0; }
+.theme { background:none; border:1.5px solid var(--line); color:var(--fg); border-radius:999px; padding:8px 14px; font:600 14px "Hanken Grotesk"; cursor:pointer; min-height:40px; }
+
+main { max-width:860px; margin:0 auto; padding:0 16px 48px; }
+section { position:relative; padding:8px 0 8px 22px; margin:28px 0; }
+section::before { content:""; position:absolute; left:0; top:12px; bottom:12px; width:8px; border-radius:4px; background:var(--band); }
+.era-limestone { --band:var(--limestone); } .era-sandstone { --band:var(--sandstone); } .era-brick { --band:var(--brick); }
+.era-iron { --band:var(--iron); } .era-loam { --band:var(--loam); } .era-peat { --band:var(--peat); } .era-bog { --band:#0E0B08; }
+:root[data-theme="dark"] .era-bog, :root[data-theme="dark"] .era-peat { --band:#6B5743; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .era-bog, :root:not([data-theme="light"]) .era-peat { --band:#6B5743; } }
+h2 { font:800 clamp(32px, 7vw, 48px)/.95 "Big Shoulders Display", Impact, sans-serif; text-transform:uppercase; margin:8px 0 14px; scroll-margin-top:16px; }
+h3 { font:700 20px/1.25 "Hanken Grotesk"; margin:26px 0 8px; scroll-margin-top:16px; }
+p, li { color:var(--fg-soft); }
+strong { color:var(--fg); }
+ul, ol { padding-left:22px; } li { margin:6px 0; }
+
+.shots { display:flex; gap:14px; overflow-x:auto; padding:6px 2px 14px; margin:14px 0 18px; scroll-snap-type:x mandatory; }
+.shots img { flex:0 0 auto; width:min(240px, 62vw); height:auto; border-radius:22px; border:6px solid var(--ink); background:var(--ink); scroll-snap-align:start; box-shadow:0 8px 24px rgba(22,19,15,.18); }
+.shots img[src*="alert"] { width:min(360px, 80vw); border-radius:16px; }
+
+aside.note { background:var(--note-bg); color:var(--note-fg); border-left:8px solid var(--lichen); border-radius:14px; padding:14px 18px; margin:18px 0; }
+aside.note p { color:var(--note-fg); margin:0; } aside.note strong { color:var(--note-fg); } aside.note a { color:var(--lichen); }
+
+.table { overflow-x:auto; margin:14px 0 20px; border:1.5px solid var(--line); border-radius:14px; background:var(--surface); }
+table { border-collapse:collapse; width:100%; min-width:460px; font-size:15.5px; }
+th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--line); color:var(--fg-soft); }
+th { font:700 12px/1.2 "Hanken Grotesk"; letter-spacing:.12em; text-transform:uppercase; color:var(--fg); background:color-mix(in srgb, var(--band, var(--limestone)) 35%, transparent); }
+tr:last-child td { border-bottom:none; }
+@media (max-width:600px) {
+  table { min-width:0; } thead { position:absolute; left:-9999px; }
+  table, tbody, tr, td { display:block; width:100%; }
+  tr { padding:10px 0; border-bottom:1px solid var(--line); } tr:last-child { border-bottom:none; }
+  td { border:none; padding:3px 14px; }
+  td:first-child { color:var(--fg); font-weight:700; font-size:16.5px; padding-bottom:5px; }
+  td:not(:first-child)[data-label]:not([data-label=""])::before { content:attr(data-label) ": "; font-weight:700; color:var(--fg); }
+}
+code { font-family:ui-monospace, monospace; font-size:.92em; }
+.credits { border-top:2px solid var(--fg); padding-top:16px; margin-top:32px; font-size:14.5px; }
+.credits p { color:var(--fg-muted); }
+.top { display:inline-block; margin-top:6px; font-size:14px; }
+@media (min-width:760px) { body { font-size:18px; } }
+@media print { nav.toc, .toolbar { display:none; } .shots { flex-wrap:wrap; overflow:visible; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#guide">Skip to the guide</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v15M5 18h14M8 7h8M12 3l-6 15M12 3l6 15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>Lost Places · user guide</div>
+    <h1>Look down.<br>Find what's near you.</h1>
+    <p class="lede">Stone circles, lost villages and legends under your feet, in England and Ireland. Offline, no signal needed. Here's how to get the most from the app.</p>
+    <div class="you" aria-hidden="true"><i></i>You, now</div>
+  </div>
+  <div class="bands" aria-hidden="true"><div>AD 1700</div><div>AD 1300</div><div>AD 43</div><div>800 BC</div><div>2200 BC</div><div>3800 BC</div></div>
+</header>
+<nav class="toc" aria-label="Contents"><div class="wrap">
+<a href="#1-your-first-2-minutes">Your first 2 minutes</a>
+<a href="#2-the-five-tabs">The five tabs</a>
+<a href="#3-at-home-visit-a-column-or-search">At home? Visit a column, or search</a>
+<a href="#4-places-and-stories">Places and stories</a>
+<a href="#5-how-sure-are-we-the-evidence-lines">How sure are we? The evidence lines</a>
+<a href="#6-going-for-a-walk">Going for a walk</a>
+<a href="#7-standing-there-add-the-layer">Standing there: add the layer</a>
+<a href="#8-the-lost-tab">The Lost tab</a>
+<a href="#9-todays-line">Today&#x27;s line</a>
+<a href="#10-going-offline">Going offline</a>
+<a href="#11-free-and-explorer">Free and Explorer</a>
+<a href="#12-respect-the-past-and-stay-safe">Respect the past, and stay safe</a>
+<a href="#13-your-privacy">Your privacy</a>
+<a href="#14-something-not-working">Something not working?</a>
+<a href="#15-accessibility">Accessibility</a>
+</div></nav>
+<div class="toolbar"><button class="theme" type="button" id="theme" aria-pressed="false">Dark</button></div>
+<main id="guide">
+
+<section class="era-limestone"><h2 id="1-your-first-2-minutes">1. Your first 2 minutes</h2>
+<p><strong>There's no account and no sign-up.</strong> Open the app and you're in.</p>
+<div class="shots"><img src="img/01-first-launch.jpg" alt="The first screen: Lost gold. Drowned towns. Vanished villages. A big Look down button." loading="lazy"> <img src="img/02-sink.jpg" alt="The sink has landed: Right under you, c. 2850 to 2200 BC, Britain's largest stone circle." loading="lazy"></div>
+<ol>
+<li><strong>Tap Look down.</strong> The app asks to use your location. Say yes, and choose <strong>Precise</strong> if your phone asks.</li>
+<li><strong>Watch the sink.</strong> The screen sinks down through the centuries. The years count back and your phone gives a little tick for each century. It lands on something real near you, such as the stone circle you're standing in.</li>
+<li><strong>Tap Show me</strong> to open that place, or tap <strong>See all layers under you</strong> to see your Column.</li>
+</ol>
+<p>Outdoors, GPS finds you in a few seconds. It works with no phone signal.</p>
+<aside class="note">
+<p><strong>Not near anything?</strong> On the first screen, tap <strong>Not near anything? Visit a famous place</strong>. You can start at Avebury, Newgrange, Stonehenge and other famous places. See <a href="#3-at-home-visit-a-column-or-search">section 3</a>.</p>
+</aside>
+<h3 id="reading-your-column">Reading your Column</h3>
+<p>Your Column is the ground under you, drawn as layers of time. Today is at the top. The oldest things are at the bottom.</p>
+<div class="shots"><img src="img/03-column.jpg" alt="The Column at Avebury: 12 layers within 3 km, with Today's line and Walk with alerts buttons at the top." loading="lazy"> <img src="img/04-column-deep.jpg" alt="Further down the Column: Neolithic layers, the Avebury stone circle and a Surface button." loading="lazy"> <img src="img/05-bedrock.jpg" alt="The bottom of the Column: West Kennet Long Barrow, then bedrock, chalk." loading="lazy"></div>
+<ul>
+<li><strong>Scroll down to go back in time.</strong> Each band is an era: early modern, medieval, Roman, Iron Age, Bronze Age, Neolithic.</li>
+<li><strong>Every place within 3 km of you is a layer.</strong> Each one shows its date, its name, how far away it is, and how sure we are about it.</li>
+<li><strong>"Area only, no exact spots"</strong> means a group of records that we never pin to one spot (see <a href="#12-respect-the-past-and-stay-safe">Respect the past</a>).</li>
+<li><strong>"Quiet here"</strong> means nothing from that era is on record nearby. The app tells you the nearest one instead.</li>
+<li><strong>A dashed box with mist</strong> is a legend told about this ground. It's a story, not a place.</li>
+<li><strong>Bedrock</strong> is the very bottom: the rock your whole column sits on.</li>
+<li><strong>Tap a layer</strong> to open it. Tap <strong>Surface</strong> to come back up to today.</li>
+</ul>
+</section>
+<section class="era-limestone"><h2 id="2-the-five-tabs">2. The five tabs</h2>
+<p>The bar at the bottom of the screen has five tabs.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>What it's for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Tab"><strong>Column</strong></td>
+<td data-label="What it&#x27;s for">The layers of time under where you stand. Your home screen. Search, settings, <strong>Today's line</strong> and <strong>Walk with alerts</strong> are at the top.</td>
+</tr>
+<tr>
+<td data-label="Tab"><strong>Lost</strong></td>
+<td data-label="What it&#x27;s for">Things that vanished: lost villages, drowned towns, lost treasure and legends, nearest first.</td>
+</tr>
+<tr>
+<td data-label="Tab"><strong>Horizon</strong></td>
+<td data-label="What it&#x27;s for">Turn on the spot and see which old places lie on your skyline. Uses the compass, not the camera.</td>
+</tr>
+<tr>
+<td data-label="Tab"><strong>Atlas</strong></td>
+<td data-label="What it&#x27;s for">The Time Atlas: a map of the land around you, era by era.</td>
+</tr>
+<tr>
+<td data-label="Tab"><strong>Your column</strong></td>
+<td data-label="What it&#x27;s for">Your own collection. It only grows when you stand at a real place.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="shots"><img src="img/21-horizon.jpg" alt="Horizon: facing north, Avebury is 410 m ahead on the skyline." loading="lazy"> <img src="img/20-atlas.jpg" alt="Time Atlas at Avebury: today's map with protected ground hatched and era buttons." loading="lazy"></div>
+<p><strong>Horizon.</strong> Point the top of your phone ahead of you and turn slowly. The skyline turns with you. <strong>Ahead</strong> names the place you're facing, with how far away it is, and Horizon shows today's sunset time. If the app says <strong>Compass rough</strong>, tap <strong>Set north by the sun</strong>. Face the sun with the top of your phone and tap <strong>Done</strong>. Don't look straight at the sun. <strong>Camera view</strong> shows the labels over your camera picture. It's an Explorer extra, but you get 3 free tries.</p>
+<p><strong>Atlas.</strong> Tap an era button, such as <strong>Medieval</strong> or <strong>2400 BC</strong>, to see only the places that already stood by then. Hatching marks protected ground. Mist marks a legend, which is never a point. Free shows today's map plus the deepest era under you. Every era comes with Explorer.</p>
+<p><strong>Settings</strong> is the gear icon at the top of the Column and of Your column. It has offline packs, alerts and walking, quiet hours, Explorer, privacy and sources.</p>
+<div class="shots"><img src="img/25-settings.jpg" alt="Settings, The ground rules: Offline packs, Alerts and walking, Explorer, quiet hours from 22:00 to 07:00, Privacy, Sources and licences, Rate Lost Places." loading="lazy"></div>
+</section>
+<section class="era-sandstone"><h2 id="3-at-home-visit-a-column-or-search">3. At home? Visit a column, or search</h2>
+<p>You don't have to be outdoors to explore.</p>
+<div class="shots"><img src="img/07-visit.jpg" alt="Visit a column: a search box and a list of famous columns, such as Avebury, Stonehenge and Newgrange." loading="lazy"> <img src="img/08-search.jpg" alt="Search for Castlerigg finds Castlerigg Stone Circle, with a Visit button." loading="lazy"></div>
+<ul>
+<li>On the Column, tap the <strong>magnifying glass</strong>. (With no location, tap <strong>Or visit a famous place</strong>.)</li>
+<li><strong>Famous columns:</strong> 12 places in England and Ireland, including Avebury, Stonehenge, Newgrange, Housesteads on Hadrian's Wall, Glastonbury Tor, Castlerigg, Poulnabrone, Wharram Percy, Tintagel, Lindisfarne, Skellig Michael and the Roman Baths.</li>
+<li><strong>Search</strong> any site by name, for example "Castlerigg". Search works offline. With your country downloaded, it finds every site on record, not just the famous ones.</li>
+<li>Tap <strong>Visit</strong> to read the ground under that place. Visit is offered for places you can stand at.</li>
+<li><strong>Legends, treasure, lost towns and mysteries</strong> come up under <strong>Lost, legend and mystery</strong>. They open their own page, which shows them only as soft areas, never as a point or a precise distance.</li>
+</ul>
+<p>While you're visiting, the Column says <strong>Browsing a column</strong>. Tap <strong>Use my location</strong> to come back to where you really are.</p>
+<aside class="note">
+<p><strong>You can read anywhere, but layers only go in Your column when you're really there.</strong> No pins from the sofa.</p>
+</aside>
+</section>
+<section class="era-sandstone"><h2 id="4-places-and-stories">4. Places and stories</h2>
+<p>Tap any layer to open its place page.</p>
+<div class="shots"><img src="img/09-site.jpg" alt="The Avebury place page: 40 m east, 1 min walk, a diagram of the column, and the buttons You're here: add this layer, Hear its story, Its legend and Look toward it." loading="lazy"> <img src="img/10-story.jpg" alt="A story: a hook line, a drawing marked Interpretation, drawn, not found, and the How sure are we? lines." loading="lazy"></div>
+<p>A place page shows:</p>
+<ul>
+<li><strong>How far away it is</strong> and which way, plus the walking time.</li>
+<li><strong>Where it sits in your column</strong>, as a small diagram.</li>
+<li><strong>A short description</strong>, and whether it's a protected monument.</li>
+<li><strong>Access</strong>, for example "No public access recorded. Look from public paths."</li>
+</ul>
+<p>The buttons you might see:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Button</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Button"><strong>You're here: add this layer</strong></td>
+<td data-label="What it does">Only shows when you're standing there. See <a href="#7-standing-there-add-the-layer">section 7</a>.</td>
+</tr>
+<tr>
+<td data-label="Button"><strong>Walk there with alerts</strong></td>
+<td data-label="What it does">For places up to 5 km away. Starts a walk that taps you on the shoulder when you arrive.</td>
+</tr>
+<tr>
+<td data-label="Button"><strong>Directions</strong></td>
+<td data-label="What it does">For places further away. Opens your own maps app.</td>
+</tr>
+<tr>
+<td data-label="Button"><strong>Hear its story</strong></td>
+<td data-label="What it does">The real history of the place. The button shows how long it runs, usually about a minute and a half.</td>
+</tr>
+<tr>
+<td data-label="Button"><strong>Its legend</strong></td>
+<td data-label="What it does">The folk tale told about it.</td>
+</tr>
+<tr>
+<td data-label="Button"><strong>Look toward it</strong></td>
+<td data-label="What it does">Opens Horizon pointing you at it.</td>
+</tr>
+<tr>
+<td data-label="Button"><strong>Bookmark</strong> (top right)</td>
+<td data-label="What it does">Saves the place for later.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="hear-its-story-or-its-legend">Hear its story, or Its legend?</h3>
+<ul>
+<li><strong>Hear its story</strong> is what we know: what was built, when and by whom. It starts with a hook, has a drawing marked <strong>"Interpretation · drawn, not found"</strong>, then <strong>How sure are we?</strong>, <strong>The longer version</strong> and <strong>Sources</strong>. Every source is listed.</li>
+<li><strong>Its legend</strong> is what people <em>tell</em>. Legends are shown in mist, with no point and no distance. They are clearly marked as legends.</li>
+<li>Legends and lost treasure come as <strong>five short slides</strong>, then the evidence, then a link to the area.</li>
+<li>At the end of a story, <strong>Up next</strong> suggests another one nearby.</li>
+</ul>
+<h3 id="narration-and-words">Narration and words</h3>
+<p>The words are always on screen, so you can read without sound. Tap the <strong>play</strong> button to hear the story read aloud, sentence by sentence. Tap again to pause. Narration starts off. Once you turn it on, the app remembers your choice next time. It uses your phone's own voice, so it works offline.</p>
+</section>
+<section class="era-brick"><h2 id="5-how-sure-are-we-the-evidence-lines">5. How sure are we? The evidence lines</h2>
+<p>Every story and every lost place carries a line that tells you how solid the evidence is. <strong>We always say which is which.</strong> Tap a line to read more.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Word</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Line">──── solid</td>
+<td data-label="Word"><strong>Verified</strong></td>
+<td data-label="What it means">On the record and checked. Dated or found by archaeologists.</td>
+</tr>
+<tr>
+<td data-label="Line">– – – dashed</td>
+<td data-label="Word"><strong>Approximate</strong></td>
+<td data-label="What it means">Real, but the date, number or position is only rough.</td>
+</tr>
+<tr>
+<td data-label="Line">════ double</td>
+<td data-label="Word"><strong>Disputed</strong></td>
+<td data-label="What it means">Experts disagree. We tell you both sides.</td>
+</tr>
+<tr>
+<td data-label="Line">······ dotted</td>
+<td data-label="Word"><strong>Lost</strong></td>
+<td data-label="What it means">It was real, but it's gone or nobody can find it now.</td>
+</tr>
+<tr>
+<td data-label="Line">〰〰 wavy</td>
+<td data-label="Word"><strong>Legend</strong></td>
+<td data-label="What it means">A story people tell. There's no evidence it happened.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Many stories mix lines. At Avebury, for example, the date is Verified, the number of stones is Approximate, and why the stones were buried is Disputed.</p>
+</section>
+<section class="era-brick"><h2 id="6-going-for-a-walk">6. Going for a walk</h2>
+<p>Start a walk, put the phone in your pocket, and Lost Places taps you on the shoulder when you're about 200 m from a place worth seeing. <strong>It uses GPS alone, so it works with no signal, even in airplane mode.</strong></p>
+<div class="shots"><img src="img/16-walk.jpg" alt="The walk screen: How we tap your shoulder, with switches for Arrivals, Under your feet, Protected zones and Lost near you, and a Start walking button that shows the free walks left." loading="lazy"> <img src="img/17-alert.jpg" alt="An alert in the notification shade: 190 m: West Kennet Long Barrow. You can walk inside a tomb that is 5,600 years old. Buttons: Open, Later, Mute area." loading="lazy"></div>
+<h3 id="starting">Starting</h3>
+<ol>
+<li>On the Column, tap <strong>Walk with alerts</strong>. Or, on a place page, tap <strong>Walk there with alerts</strong>.</li>
+<li>Tap <strong>Start walking</strong>. The first time, the app asks to send notifications. Say <strong>Allow</strong>.</li>
+<li>Put the phone away. A small "Walking · live" notification stays in your notification bar while you walk.</li>
+<li>When you're done, open the walk and tap <strong>Stop walking</strong>.</li>
+</ol>
+<p><strong>A walk needs notifications.</strong> If they're off, the walk won't start. It says so, and it doesn't use up a free walk. Tap <strong>Turn on notifications</strong> and start again.</p>
+<p><strong>A walk needs precise location.</strong> If your phone gives Lost Places only its <em>approximate</em> location, it can't tell when you're 200 m from a place. The walk screen says <strong>Precise location is off</strong>, the walk won't start, and no free walk is used. Tap <strong>Turn on precise location</strong>.</p>
+<p>While you walk, the Column header says <strong>Walking · N ahead</strong>.</p>
+<h3 id="what-taps-you-and-when">What taps you, and when</h3>
+<p>You can switch each kind on or off on the walk screen, under <strong>How we tap your shoulder</strong>.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Alert</th>
+<th>When</th>
+<th>Sound</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Alert"><strong>Arrivals</strong></td>
+<td data-label="When">When you're about 200 m from a place, on foot. Once per place. Places close together come as one alert.</td>
+<td data-label="Sound">A normal notification</td>
+</tr>
+<tr>
+<td data-label="Alert"><strong>Under your feet</strong></td>
+<td data-label="When">When the ground under you gains a new layer as you walk. At most 3 a day.</td>
+<td data-label="Sound">Silent</td>
+</tr>
+<tr>
+<td data-label="Alert"><strong>Protected zones</strong></td>
+<td data-label="When">When you walk into, or are about to walk into, a protected monument area. Only when walking, never while driving.</td>
+<td data-label="Sound">Quiet</td>
+</tr>
+<tr>
+<td data-label="Alert"><strong>Lost near you</strong></td>
+<td data-label="When">When you walk into the area of a lost village. On foot only. At most 3 a day. Never a point.</td>
+<td data-label="Sound">Quiet, never a buzz</td>
+</tr>
+<tr>
+<td data-label="Alert"><strong>Treasure areas</strong></td>
+<td data-label="When">Only if you asked for that treasure, on its page.</td>
+<td data-label="Sound">Quiet</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Legends never send alerts.</strong> They have no point to arrive at.</p>
+<h3 id="kept-quiet-on-purpose">Kept quiet on purpose</h3>
+<ul>
+<li><strong>Quiet hours:</strong> no alerts from 22:00 to 07:00. This is on unless you turn it off in <strong>Settings</strong>.</li>
+<li><strong>Never while driving:</strong> alerts wait while you're moving faster than about 29 km/h (18 mph).</li>
+<li><strong>Never too many:</strong> at most 3 arrival alerts an hour and 8 a day. The same place won't alert you again for 30 days.</li>
+</ul>
+<h3 id="on-an-alert">On an alert</h3>
+<ul>
+<li><strong>Open</strong> shows the place.</li>
+<li><strong>Later</strong> puts it away.</li>
+<li><strong>Mute area</strong> silences alerts within about 1 km of there, for 30 days.</li>
+<li>Tap the alert itself to go straight to the story.</li>
+</ul>
+<h3 id="free-walks">Free walks</h3>
+<p>Free includes <strong>3 walks with alerts</strong>. With Explorer you get as many as you like. A free walk is only counted when it first taps you on the shoulder: the first arrival, lost-place or under-foot notice you actually get. A walk that never alerts you (at night, with notifications off, or with approximate location) costs nothing. If you stop and start again within 6 hours, it's still the same walk.</p>
+<h3 id="alerts-when-the-app-is-closed">Alerts when the app is closed</h3>
+<p>This version taps you on the shoulder <strong>during a walk</strong>. Some versions also show <strong>Alerts when the app is closed</strong> in Settings. It's optional and uses background location. Walks work fine without it.</p>
+<h3 id="battery-tips">Battery tips</h3>
+<ul>
+<li>A walk uses GPS, so it uses some battery. Stop the walk when you're done.</li>
+<li>Download your country before you go (see <a href="#10-going-offline">Going offline</a>). Then your phone doesn't waste battery hunting for signal.</li>
+<li><strong>Samsung phones</strong> may put Lost Places to sleep and cut a walk short. Go to <strong>Settings &gt; Keep alerts working on Samsung</strong>, or tap <strong>Phone killing the walk? Battery settings</strong> on the walk screen. Then:
+  1. Set battery to <strong>Unrestricted</strong> (App info &gt; Battery &gt; Unrestricted).
+  2. Add Lost Places to <strong>Never sleeping apps</strong> (Settings &gt; Battery &gt; Background usage limits &gt; Never sleeping apps).</li>
+<li><strong>Other phones:</strong> <strong>Phone killing the walk? Battery settings</strong> opens Lost Places' own battery page. Choose <strong>Unrestricted</strong> (or "Don't optimise").</li>
+</ul>
+</section>
+<section class="era-iron"><h2 id="7-standing-there-add-the-layer">7. Standing there: add the layer</h2>
+<p>This is the best bit. When you stand at a real place, you can add its layer to <strong>Your column</strong>.</p>
+<div class="shots"><img src="img/11-arrival.jpg" alt="The arrival page: You're here, 2850 BC, Avebury henge and stone circles, three things to find, and Add this layer to your column." loading="lazy"> <img src="img/12-settled.jpg" alt="After adding: Settled into your column, and a Next nearby button for Silbury Hill, 1.5 km south." loading="lazy"> <img src="img/13-your-column.jpg" alt="Your column: 4,900 years deep, 1 place stood on, 1 of 8 eras reached, with Avebury just settled." loading="lazy"></div>
+<ol>
+<li>At the place, open it and tap <strong>You're here: add this layer</strong>. (It also appears at the end of a story you opened from an alert.)</li>
+<li>You'll see <strong>Three things to find</strong> at the place. Look for them!</li>
+<li>Tap <strong>Add this layer to your column</strong>. The layer settles in with a little buzz.</li>
+<li><strong>Next nearby</strong> suggests another place to walk to.</li>
+</ol>
+<p><strong>Why it only works there:</strong> the app needs a real GPS fix, close to the place (about 150 m, or more for big sites). Browsing from home never adds a layer.</p>
+<h3 id="your-column">Your column</h3>
+<ul>
+<li><strong>Years deep</strong> is how far back your oldest layer goes.</li>
+<li><strong>Places stood on</strong>, <strong>eras reached</strong> (out of 8) and <strong>countries</strong>.</li>
+<li><strong>Told</strong> counts the stories you've heard. Hearing a story doesn't settle it. Standing there does.</li>
+<li><strong>"Not yet"</strong> gaps show eras you haven't reached, with the nearest place to fill them.</li>
+<li><strong>Share your column</strong> sends a short text summary.</li>
+</ul>
+</section>
+<section class="era-iron"><h2 id="8-the-lost-tab">8. The Lost tab</h2>
+<p><strong>Things that vanished</strong>, nearest first.</p>
+<div class="shots"><img src="img/14-lost.jpg" alt="The Lost tab: Things that vanished, with filters and cards for legends and a lost medieval village." loading="lazy"> <img src="img/15-treasure.jpg" alt="King John's lost treasure: three soft areas of interest labelled A, B and C on a map, Hear the story, and a switch: Tell me if a walk passes through one." loading="lazy"></div>
+<p>Use the buttons at the top to filter: <strong>All</strong>, <strong>Lost towns &amp; treasure</strong>, <strong>Villages</strong> and <strong>Legends</strong>. Each card tells you what it is, how far away it is (or <strong>This area</strong> if you're in it), a one-line hook, how sure we are, and whether you can visit.</p>
+<ul>
+<li><strong>Lost villages:</strong> hundreds of medieval villages that emptied, some just fields today. They come from your country's download. Many are on private farmland, so look from public paths.</li>
+<li><strong>Drowned towns:</strong> places like Dunwich and Ravenser Odd, swallowed by the sea.</li>
+<li><strong>Legends:</strong> stories like the Ninth Legion or Hy-Brasil, the island that never was. Told, never found.</li>
+<li><strong>Lost treasure:</strong> for example King John's baggage, lost in the Wash in 1216. Its page shows the main theories of where it was lost. Each one is a soft <strong>area of interest</strong>, about 3 km wide, with the name of the person who suggested it.</li>
+</ul>
+<h3 id="why-there-are-never-points">Why there are never points</h3>
+<p>Lost Places <strong>never marks a spot to dig or search</strong>. Lost villages, legends and treasure are shown only as <strong>soft areas</strong>, never as pins. This protects the places (and the farmers who own the land). It's also honest: nobody knows exactly where King John's treasure is.</p>
+<h3 id="treasure-areas-an-opt-in-notice">Treasure areas: an opt-in notice</h3>
+<p>On a treasure's page you can turn on <strong>Tell me if a walk passes through one</strong>. During a walk with alerts, you'll then get a quiet line if you walk into one of its areas. It's off unless you turn it on. It needs notifications, and it only works on foot.</p>
+</section>
+<section class="era-loam"><h2 id="9-todays-line">9. Today's line</h2>
+<p>One short question a day, about 20 seconds. Tap <strong>Today's line</strong> at the top of the Column.</p>
+<div class="shots"><img src="img/18-today.jpg" alt="Today's line: Older or younger? West Kennet Long Barrow, 2.3 km from you, against the Great Pyramid at Giza." loading="lazy"> <img src="img/19-today-answered.jpg" alt="Answered: Right, line laid. Older, by about 1,100 years." loading="lazy"></div>
+<ul>
+<li><strong>Older or younger?</strong> A place near you against something famous in the world. Is the tomb down the road older than the Great Pyramid? (Sometimes it's <strong>Real or legend?</strong> instead.)</li>
+<li><strong>Right or wrong, you lay a line.</strong> Each day adds one line of sediment. Miss a day and the sediment just keeps a gap. No streaks to lose.</li>
+<li>After you answer, you'll see a hint of tomorrow's question, and you can share today's line as text.</li>
+<li><strong>Reminder:</strong> after you answer, you can turn on <strong>Remind me at 08:00</strong> for one quiet morning note. It only comes if you haven't answered yet, and never in quiet hours. It needs notifications. You can also turn it on or off in <strong>Settings</strong>.</li>
+</ul>
+</section>
+<section class="era-loam"><h2 id="10-going-offline">10. Going offline</h2>
+<p>Lost Places works with no signal. Download your country once, ideally at home on Wi-Fi.</p>
+<div class="shots"><img src="img/06-starter-column.jpg" alt="The starter column banner: This is the starter column. Get the full ground for England, 16 MB, no map needed." loading="lazy"> <img src="img/22-packs.jpg" alt="Offline packs: England, Download sites and stories, 16 MB, or With the map too, 1.06 GB." loading="lazy"> <img src="img/23-packs-installed.jpg" alt="England on this phone, with an Add the map button, and Ireland offered with Explorer." loading="lazy"></div>
+<p>Before you download, you see the <strong>starter column</strong>: the famous places and stories built into the app. A banner at the top says <strong>This is the starter column</strong>. Tap it to get your country.</p>
+<p>Go to <strong>Settings &gt; Offline packs</strong>. Each country comes in two parts:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Sites and stories (what you need)</th>
+<th>Map (optional)</th>
+<th>Both</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Country"><strong>England</strong></td>
+<td data-label="Sites and stories (what you need)">16 MB</td>
+<td data-label="Map (optional)">1.05 GB</td>
+<td data-label="Both">1.06 GB</td>
+</tr>
+<tr>
+<td data-label="Country"><strong>Ireland</strong> (the Republic)</td>
+<td data-label="Sites and stories (what you need)">56 MB</td>
+<td data-label="Map (optional)">253 MB</td>
+<td data-label="Both">309 MB</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Sites and stories</strong> is all the Column, Lost tab, alerts and arrivals need: every record near you, the lost villages and the alerts.</li>
+<li><strong>The map</strong> adds detailed roads and labels to the Time Atlas and the area maps. Without it, you see a simple outline map.</li>
+<li><strong>Download on Wi-Fi only</strong> is on at first. If you're on mobile data, the app asks first, because it may use your allowance, and abroad it can be expensive.</li>
+<li>Downloads <strong>carry on from where they stopped</strong> if they're cut off.</li>
+<li>You can <strong>Update</strong>, <strong>Add the map</strong> later, or <strong>Remove</strong> a country to free space.</li>
+</ul>
+<p><strong>Free includes one country.</strong> Pick the one you're in, or visiting next. Both countries come with Explorer.</p>
+<h3 id="what-works-with-no-signal">What works with no signal</h3>
+<p>Once your country is downloaded, all of this works offline, even in airplane mode: the Column, the sink, place pages, stories and narration, Lost, Today's line, Your column, Horizon, the Time Atlas, search, walks and alerts, and adding layers.</p>
+<p>You need a connection only to download packs, to buy or restore Explorer, to open directions in your maps app, and to rate the app.</p>
+</section>
+<section class="era-peat"><h2 id="11-free-and-explorer">11. Free and Explorer</h2>
+<p>Lost Places is free to use, with no ads. <strong>Explorer</strong> is a one-time unlock: <strong>£4.99</strong> in the UK (Google Play shows the price in your own currency).</p>
+<div class="shots"><img src="img/24-explorer.jpg" alt="The Explorer sheet: Go all the way down. Free and Explorer columns, Unlock Explorer £4.99, Restore purchase, Not now." loading="lazy"></div>
+<div class="table"><table>
+<thead>
+<tr>
+<th></th>
+<th>Free</th>
+<th>Explorer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="">The Column, wherever you stand</td>
+<td data-label="Free">Yes</td>
+<td data-label="Explorer">Yes</td>
+</tr>
+<tr>
+<td data-label="">Visit famous columns and search offline</td>
+<td data-label="Free">Yes</td>
+<td data-label="Explorer">Yes</td>
+</tr>
+<tr>
+<td data-label="">Place pages, stories and legends</td>
+<td data-label="Free">Yes</td>
+<td data-label="Explorer">Yes</td>
+</tr>
+<tr>
+<td data-label="">Arrivals and adding layers on site</td>
+<td data-label="Free">Yes</td>
+<td data-label="Explorer">Yes</td>
+</tr>
+<tr>
+<td data-label="">Today's line and Your column</td>
+<td data-label="Free">Yes</td>
+<td data-label="Explorer">Yes</td>
+</tr>
+<tr>
+<td data-label="">Horizon (compass)</td>
+<td data-label="Free">Yes</td>
+<td data-label="Explorer">Yes</td>
+</tr>
+<tr>
+<td data-label="">Offline countries</td>
+<td data-label="Free">1</td>
+<td data-label="Explorer">Both</td>
+</tr>
+<tr>
+<td data-label="">Walks with alerts</td>
+<td data-label="Free">3</td>
+<td data-label="Explorer">As many as you like</td>
+</tr>
+<tr>
+<td data-label="">Time Atlas</td>
+<td data-label="Free">Today + the deepest era under you</td>
+<td data-label="Explorer">Every era</td>
+</tr>
+<tr>
+<td data-label="">Horizon camera view</td>
+<td data-label="Free">3 tries</td>
+<td data-label="Explorer">As much as you like</td>
+</tr>
+<tr>
+<td data-label="">Lost tab</td>
+<td data-label="Free">The 6 nearest legends and lost towns, every lost village in your country, and one featured lost place each week</td>
+<td data-label="Explorer">Everything</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Pay once, like a guidebook.</strong> No subscription, no account, nothing that runs out.</li>
+<li><strong>Free never shrinks.</strong> Nothing you have for free now will move behind Explorer.</li>
+<li><strong>Restore purchase:</strong> on a new phone, open <strong>Settings &gt; Explorer</strong> and tap <strong>Restore purchase</strong>. Use the same Google account you bought it with.</li>
+<li>Purchases go through Google Play. We never see your payment details.</li>
+</ul>
+</section>
+<section class="era-peat"><h2 id="12-respect-the-past-and-stay-safe">12. Respect the past, and stay safe</h2>
+<p>These places have lasted thousands of years. Please help them last a few more.</p>
+<ul>
+<li><strong>Look, don't dig.</strong> Lost Places has no dig spots, no find spots and no detecting features. Never dig, use a metal detector, or take anything from a site.</li>
+<li><strong>Protected monuments are protected by law.</strong> In England, scheduled monuments are protected by law. In Ireland, recorded monuments are protected under the National Monuments Acts. Damaging them, or metal detecting on them, is a crime. The app tells you when you walk into a protected area.</li>
+<li><strong>Don't climb</strong> on stones, mounds or walls unless a sign says you may. Silbury Hill, for example, is closed to climbers to stop it eroding.</li>
+<li><strong>Private land:</strong> many places, especially lost villages, are on farmland. If the app says "No public access recorded", <strong>look from public paths</strong>. Stay on rights of way, close gates behind you, and follow the Countryside Code.</li>
+<li><strong>Treasure:</strong> in England, finds that count as treasure must by law be reported, under the Treasure Act 1996. In Ireland, all archaeological objects must be reported to the National Museum. Lost Places never shows where to look.</li>
+</ul>
+<h3 id="stay-safe">Stay safe</h3>
+<ul>
+<li><strong>Tides:</strong> some places, like Lindisfarne's causeway or coastal sites, are cut off by the sea. Check the tide times before you cross.</li>
+<li><strong>Cliffs:</strong> keep back from cliff edges, for example at Tintagel and on the coast. Ground can give way.</li>
+<li><strong>Livestock:</strong> give cows a wide berth, especially with calves. Keep dogs on a lead near animals.</li>
+<li><strong>Weather:</strong> moors and hills change fast. Take a coat, water and a charged phone, and tell someone where you're going.</li>
+<li><strong>Don't stare at the screen while walking.</strong> Let the alerts tap you on the shoulder. That's what they're for.</li>
+<li><strong>At night:</strong> quiet hours keep the app silent from 22:00 to 07:00. Old sites are best visited in daylight.</li>
+</ul>
+</section>
+<section class="era-bog"><h2 id="13-your-privacy">13. Your privacy</h2>
+<p><strong>Your location never leaves your phone.</strong></p>
+<ul>
+<li>Your location is checked on your phone against the places you downloaded. It is never sent to us or anyone else.</li>
+<li>No account, no sign-in, no ads, no analytics.</li>
+<li>Your column, saved places and Today's lines stay on your phone.</li>
+<li>The app only goes online to download the packs you choose and to check your Explorer purchase with Google Play.</li>
+<li>Horizon uses the compass, not the camera. The optional camera view only uses the camera while it's open.</li>
+<li>Uninstalling the app deletes everything. If your phone's Android backup is on, your settings may be copied to your own Google backup. Downloaded packs never are.</li>
+</ul>
+<p>Read it all in <strong>Settings &gt; Privacy</strong>, or in the full <a href="../privacy/">privacy policy</a>. (When the guide and policy are hosted, this link points to the policy's public address.)</p>
+</section>
+<section class="era-bog"><h2 id="14-something-not-working">14. Something not working?</h2>
+<p><strong>I'm not getting any alerts.</strong>
+- Is a walk running? Look for the "Walking · live" notification. Alerts only come during a walk.
+- Are notifications on for Lost Places? Check your phone's Settings &gt; Apps &gt; Lost Places &gt; Notifications.
+- Is it between 22:00 and 07:00? Quiet hours are on.
+- Are you in a car or on a bus? Alerts wait until you're on foot.
+- Did you already get an alert for that place in the last 30 days, or tap <strong>Mute area</strong> near there?
+- Is your country downloaded? The starter column has far fewer places that can alert.
+- On a Samsung phone, follow the <a href="#battery-tips">battery tips</a>.</p>
+<p><strong>The compass says "Compass rough".</strong>
+Move away from cars, metal fences and magnetic phone cases. Wave the phone slowly in a figure of eight. Or, on Horizon, tap <strong>Set north by the sun</strong>.</p>
+<p><strong>My download is stuck.</strong>
+- <strong>Waiting for Wi-Fi:</strong> connect to Wi-Fi, or tap <strong>Use mobile data</strong>.
+- <strong>Paused · no connection:</strong> it carries on by itself when you're back online.
+- <strong>No space:</strong> the app tells you how much it needs. Free up some space, or download sites and stories without the map.
+- <strong>Can't reach the download server:</strong> try again later. Packs already on your phone still work.</p>
+<p><strong>My column looks empty, or says "Nothing on record yet".</strong>
+- You may be on the starter column. Download your country (see <a href="#10-going-offline">Going offline</a>).
+- "Quiet here" is normal. Not every era left something near every spot.
+- The column covers 3 km around you.</p>
+<p><strong>It thinks I'm somewhere else.</strong>
+- If it says <strong>Browsing a column</strong>, you're visiting somewhere. Tap <strong>Use my location</strong>.
+- GPS needs open sky. Step outside or away from tall buildings and wait a few seconds.
+- If your phone only gives Lost Places your <em>approximate</em> location, it can't tell when you're at a place. In your phone's settings, turn on <strong>Use precise location</strong> for Lost Places.</p>
+<p><strong>It's night.</strong>
+Quiet hours stop alerts from 22:00 to 07:00. You can still read the Column, stories and the Lost tab. The app doesn't switch to a dark theme by itself, so turn your screen brightness down if you need to.</p>
+<p><strong>I'm abroad, or in Wales, Scotland or Northern Ireland.</strong>
+Lost Places covers England and the Republic of Ireland. Elsewhere you can still visit famous columns and read stories. Download your pack on Wi-Fi before you travel, as mobile data abroad can be expensive. GPS works without data or roaming.</p>
+<p><strong>I bought Explorer but it's not showing.</strong>
+Open <strong>Settings &gt; Explorer</strong> and tap <strong>Restore purchase</strong>. Make sure you're signed in to Google Play with the account you used to buy it.</p>
+</section>
+<section class="era-bog"><h2 id="15-accessibility">15. Accessibility</h2>
+<ul>
+<li><strong>TalkBack:</strong> every button and switch has a spoken label. Column layers are read out in full, for example "Layer 4 of 9. About 2400 BC. Silbury Hill, 1.4 km south. Verified." Narration doesn't start by itself while TalkBack is on, so it won't talk over it.</li>
+<li><strong>Text size:</strong> the app follows your phone's font size. It has been checked at up to twice the normal size.</li>
+<li><strong>Reduced motion:</strong> if you turn on <strong>Remove animations</strong> in your phone's accessibility settings, the sink skips its long descent and lands straight away.</li>
+<li><strong>Haptics:</strong> the little ticks as you scroll through the centuries follow your phone's touch vibration setting.</li>
+<li><strong>Contrast and size:</strong> all text meets strong contrast levels on every era colour, and buttons are large enough to tap easily.</li>
+<li><strong>Words always on screen:</strong> every story can be read as well as heard.</li>
+</ul>
+</section>
+<footer class="credits">
+<p><em>Lost Places is built from open data: Historic England, Ireland's National Monuments Service, Wikidata, Pleiades and OpenStreetMap. It is not linked to English Heritage, the National Trust or the OPW. Full credits are in Settings &gt; Sources and licences.</em></p></footer>
+<a class="top" href="#guide">Back to the top</a>
+</main>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme');
+  function dark() { var t = root.getAttribute('data-theme'); return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; }
+  function label() { var d = dark(); btn.textContent = d ? 'Light' : 'Dark'; btn.setAttribute('aria-pressed', String(d)); btn.setAttribute('aria-label', d ? 'Switch to light theme' : 'Switch to dark theme'); }
+  try { var saved = localStorage.getItem('lp-guide-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  label();
+  btn.addEventListener('click', function () {
+    var next = dark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('lp-guide-theme', next); } catch (e) {}
+    label();
+  });
+})();
+</script>
+</body>
+</html>

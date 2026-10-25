@@ -1,0 +1,95 @@
+<!doctype html>
+<!-- Landing page for https://nothing-all-glitch.github.io/lostplaces/ (published by pipeline/publish/publish.sh).
+     Every claim here is taken from store/play-listing.md, which was checked against the build. Keep them in step. -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Lost Places: History Near You</title>
+<meta name="description" content="Stone circles, lost villages and legends near you, in England and the Republic of Ireland. An Android app that works offline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Hanken+Grotesk:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#16130F; --ink-soft:#3A342C; --chalk:#F1EDE3; --lichen:#D6E35F;
+  --limestone:#E2D9C6; --sandstone:#D3C2A0; --brick:#BF9468; --iron:#7A5A3E; --loam:#5A4130; --peat:#34291F; --bog:#1A1612;
+  --bg:var(--chalk); --fg:var(--ink); --fg-soft:var(--ink-soft); --line:#CFC5B3; --link:#4A5A10;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#1A1612; --fg:#F1EDE3; --fg-soft:#E2D9C6; --line:#4A3D30; --link:#D6E35F; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; }
+a { color:var(--link); font-weight:600; text-underline-offset:3px; }
+a:focus-visible { outline:3px solid var(--lichen); outline-offset:2px; border-radius:4px; }
+.wrap { max-width:46rem; margin:0 auto; padding:0 16px; }
+.hero { background:var(--chalk); color:var(--ink); padding-top:28px; }
+.brand { font:700 13px/1 "Hanken Grotesk"; letter-spacing:.2em; text-transform:uppercase; }
+h1 { font:800 clamp(48px, 13vw, 104px)/.88 "Big Shoulders Display", Impact, sans-serif; text-transform:uppercase; margin:22px 0 14px; }
+.lede { font:400 clamp(19px, 3.6vw, 23px)/1.4 "Newsreader", Georgia, serif; color:var(--ink-soft); margin:0 0 22px; max-width:34em; }
+.store { display:inline-flex; align-items:center; min-height:48px; padding:0 22px; border-radius:999px; background:var(--ink); color:var(--chalk);
+  font:700 16px "Hanken Grotesk"; text-decoration:none; margin:0 0 28px; }
+.store[aria-disabled="true"] { opacity:.8; cursor:default; }
+.bands div { font:700 11px/1 "Hanken Grotesk"; letter-spacing:.14em; text-transform:uppercase; text-align:right; padding:7px 16px; }
+.bands div:nth-child(1) { background:var(--limestone); color:var(--ink); border-top:2px solid var(--ink); }
+.bands div:nth-child(2) { background:var(--sandstone); color:var(--ink); }
+.bands div:nth-child(3) { background:var(--brick); color:var(--ink); }
+.bands div:nth-child(4) { background:var(--iron); color:var(--chalk); }
+.bands div:nth-child(5) { background:var(--loam); color:var(--chalk); }
+.bands div:nth-child(6) { background:var(--peat); color:var(--chalk); }
+.bands div:nth-child(7) { background:var(--bog); color:var(--chalk); }
+section { padding:28px 0 4px 20px; position:relative; }
+section::before { content:""; position:absolute; left:0; top:34px; bottom:8px; width:6px; border-radius:3px; background:var(--band, var(--sandstone)); }
+h2 { font:800 30px/1 "Big Shoulders Display", Impact, sans-serif; text-transform:uppercase; margin:0 0 8px; }
+p { margin:0 0 12px; color:var(--fg-soft); }
+footer { border-top:1px solid var(--line); margin-top:36px; padding:20px 0 40px; font-size:15px; }
+footer a { margin-right:18px; display:inline-block; min-height:32px; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">Lost Places</div>
+    <h1>History<br>near you</h1>
+    <p class="lede">Stone circles, lost villages and legends near you, in England and the Republic of Ireland. Download a country once, and it works with no signal.</p>
+    <!-- STORE LINK: when the Play listing is live, set href="https://play.google.com/store/apps/details?id=com.masood.lostplaces" and remove aria-disabled. -->
+    <a class="store" aria-disabled="true">Google Play: coming soon</a>
+  </div>
+  <div class="bands" aria-hidden="true">
+    <div>Today</div><div>Medieval</div><div>Roman</div><div>Iron Age</div><div>Bronze Age</div><div>Neolithic</div><div>Bedrock</div>
+  </div>
+</header>
+<main class="wrap">
+  <section style="--band:var(--limestone)">
+    <h2>Look down</h2>
+    <p>Tap once and the screen sinks through the centuries to something real near you. Every place within 3 km becomes a layer in your column of time, from today down to bedrock.</p>
+  </section>
+  <section style="--band:var(--sandstone)">
+    <h2>Lost villages and legends</h2>
+    <p>Deserted medieval villages, towns swallowed by the sea, and legends. Each comes with an evidence line: Verified, Approximate, Disputed, Lost or Legend. We always say which is which.</p>
+  </section>
+  <section style="--band:var(--brick)">
+    <h2>Alerts on your walk</h2>
+    <p>Start a walk and put the phone in your pocket. Lost Places tells you when you're 200 m from a place worth seeing, using GPS alone, even in airplane mode.</p>
+  </section>
+  <section style="--band:var(--iron)">
+    <h2>Offline</h2>
+    <p>England's sites and stories are about 16 MB and the Republic of Ireland's about 56 MB; the detailed map is an optional extra. Downloads resume if they're cut off.</p>
+  </section>
+  <section style="--band:var(--loam)">
+    <h2>Respect the past</h2>
+    <p>Lost Places never marks a spot to dig or search. Legends and lost treasure are shown only as soft areas of several kilometres. Protected monuments are clearly marked.</p>
+  </section>
+  <section style="--band:var(--peat)">
+    <h2>Free, or Explorer once</h2>
+    <p>Free: the column wherever you stand, one country offline and three walks with alerts. Explorer is a one-time £4.99 for both countries, unlimited walks and every era. No subscription, no ads, no account.</p>
+  </section>
+  <footer>
+    <a href="guide/">User guide</a><a href="privacy/">Privacy policy</a>
+    <p>Your location stays on your phone. Site data: Historic England, Ireland's National Monuments Service, Wikidata, Pleiades and OpenStreetMap; licences are listed in the app.</p>
+  </footer>
+</main>
+</body>
+</html>
