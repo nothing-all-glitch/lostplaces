@@ -1,11 +1,11 @@
 {
   "format": 1,
-  "generated_at": "2026-10-22T13:22:22Z",
+  "generated_at": "2026-10-26T15:36:02Z",
   "packs": [
     {
       "id": "gb-eng",
       "name": "England",
-      "version": "2026.10.22",
+      "version": "2026.10.26",
       "bbox": [
         -6.45,
         49.86,
@@ -20,7 +20,7 @@
           "name": "sites.db",
           "path": "https://github.com/nothing-all-glitch/lostplaces/releases/download/packs-2026.10.22/gb-eng-sites.db",
           "size": 14331904,
-          "sha256": "0721545585707112c447c7340c66b24ad46e36808f9a7639e96a6a941f8c52fc",
+          "sha256": "d7583bf11c9a6b63417d3362e343d91912edaf77ff54a37fc65a411f8ba89131",
           "licence": "OGL-3.0 + CC0 + CC BY",
           "part": "sites"
         },
